@@ -323,7 +323,7 @@ const MainContent: React.FC = () => {
             <div>
               <h3 className="text-body font-semibold mb-6 text-black">Get In Touch</h3>
               <div className="space-y-4">
-                <p className="text-body text-black">+91 95139 60842</p>
+                <p className="text-body text-black">+91 9121883163</p>
                 <p className="text-body text-black">nishantsura95@gmail.com</p>
                 <p className="text-black/70">Bangalore, India</p>
               </div>

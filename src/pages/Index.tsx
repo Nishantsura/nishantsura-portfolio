@@ -148,7 +148,7 @@ const Index = () => {
               {/* Mobile Contact Info */}
               <div className="mt-6 pt-6 border-t border-border">
                 <div className="space-y-2 text-caption">
-                  <p className="text-white font-medium">+91 9121 888 63</p>
+                  <p className="text-white font-medium">+91 9121883163</p>
                   <p className="text-white/60">nishantsura95@gmail.com</p>
                 </div>
                 

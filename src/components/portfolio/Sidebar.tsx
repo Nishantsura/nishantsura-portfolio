@@ -158,7 +158,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange }) => 
         {/* Contact Information */}
         <div className="space-y-3 text-caption">
           <p className="text-black font-medium">
-            +91 9121 888 63
+            +91 9121883163
           </p>
           <p className="text-text-secondary">
             nishantsura95@gmail.com

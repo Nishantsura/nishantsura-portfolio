@@ -1,0 +1,51 @@
+/* Scroll Snap Styles */
+.scroll-snap-container {
+  scroll-snap-type: y mandatory;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.scroll-snap-section {
+  scroll-snap-align: start;
+  min-height: 100vh;
+}
+
+/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar for better UX */
+.scroll-snap-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scroll-snap-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-snap-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.scroll-snap-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Ensure sections take full viewport height */
+.snap-start {
+  scroll-snap-align: start;
+}
+
+/* Prevent horizontal overflow */
+.overflow-hidden {
+  overflow-x: hidden;
+}
+
+/* Ensure proper height for mobile */
+@media (max-width: 1024px) {
+  .scroll-snap-container {
+    height: calc(100vh - 80px); /* Account for mobile header */
+  }
+}

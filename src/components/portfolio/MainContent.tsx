@@ -2,6 +2,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Briefcase } from "lucide-react";
 import GlassCardsDemo from "@/components/ui/glass-cards-demo";
+import { Component as AnimatedBackground } from "@/components/ui/raycast-animated-background";
+import { GlowButton } from "@/components/ui/shiny-button-1";
 
 const MainContent: React.FC = () => {
   const scrollToSection = (sectionId: string) => {
@@ -32,7 +34,7 @@ const MainContent: React.FC = () => {
       year: "2021",
       name: "Improving The Swiggy Experience For The Delivery Partners",
       description: "A UX case study where we looked at how we could improve the Swiggy delivery experience for the Delivery Partner by adding a new feature, changing an existing feature, or even removing a feature.",
-      image: "/images/projects/swiggy.png",
+      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop&crop=center",
       featured: true,
       url: "https://tremendous-banjo-b0b.notion.site/Improve-The-Swiggy-Experience-For-The-Delivery-Partners-149d914b24114f90b562b5a90e050301"
     },
@@ -41,7 +43,7 @@ const MainContent: React.FC = () => {
       year: "2023",
       name: "Redesigning DigiLocker- A Visual Design case study",
       description: "To analyze the DigiLocker application and redesign the home screen using the Design principles. As the content got more detailed, I explored various concepts like heuristics, principles of UI design, color, layout, typography, accessibility and working with adaptive and responsive interfaces.",
-      image: "/images/projects/Proquo.png",
+      image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=600&fit=crop&crop=center",
       featured: true,
       url: "https://tremendous-banjo-b0b.notion.site/Redesigning-DigiLocker-A-Visual-Design-case-study-d8dbfb28243a4889ba64ef2a54a3d497"
     },
@@ -59,12 +61,17 @@ const MainContent: React.FC = () => {
     <div className="main-content overflow-hidden">
       {/* Hero Section */}
       <section id="hero" className="min-h-screen flex flex-col justify-between px-4 sm:px-8 lg:px-16 py-16 sm:py-24 lg:py-32 relative overflow-hidden snap-start">
+        {/* Animated Background */}
+        <div className="absolute inset-0 z-0 opacity-15">
+          <AnimatedBackground />
+        </div>
+        
         {/* Top Bar */}
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="flex justify-between items-center"
+          className="flex justify-between items-center relative z-10"
         >
           <div className="flex items-center space-x-2">
             <span className="text-lg font-bold">(t)</span>
@@ -76,7 +83,7 @@ const MainContent: React.FC = () => {
         </motion.div>
 
         {/* Main Hero Content */}
-        <div className="flex-1 flex flex-col justify-center space-y-8">
+        <div className="flex-1 flex flex-col justify-center space-y-8 relative z-10">
           {/* Value Proposition */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -84,9 +91,7 @@ const MainContent: React.FC = () => {
             transition={{ delay: 0.2, duration: 0.6 }}
             className="text-body-large text-white/80 max-w-2xl leading-relaxed"
           >
-            I build websites, apps & campaigns<br />
-            that actually <span className="text-highlight-red text-xl font-semibold">move the needle</span><br />
-            for growing brands.
+            I move between design, frontend, and full-stack like it's one canvas. Call it design engineering, call it vibe coding. I'm where creativity meets code.
           </motion.p>
 
           {/* Hero Headline */}
@@ -96,7 +101,7 @@ const MainContent: React.FC = () => {
             transition={{ delay: 0.4, duration: 0.8 }}
           >
             <h1 className="text-display leading-none text-white">
-              <span>THOUGHT</span> <span>/BUILT</span><br />
+              <span>DESIGNED</span> <span>/CODED</span><br />
               <span>SHIPPED.</span>
             </h1>
           </motion.div>
@@ -106,109 +111,42 @@ const MainContent: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
-            className="flex flex-col sm:flex-row gap-4"
+            className="flex flex-col sm:flex-row gap-6 items-start sm:items-center"
           >
-            <button
+            <GlowButton
               onClick={() => scrollToSection('work')}
-              className="bg-highlight-red text-white px-6 py-4 rounded-lg font-medium flex items-center gap-2 group hover:bg-highlight-red/90 transition-all duration-200"
             >
-              <Briefcase className="w-4 h-4" />
-              Hire me
-              <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-            </button>
-            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-              <button
-                onClick={() => scrollToSection('work')}
-                className="bg-white text-black border border-black px-6 py-4 rounded-lg font-medium hover:bg-black hover:text-white transition-all duration-200"
-              >
-                Explore my work
-              </button>
-              <p className="text-body text-white/70 max-w-xs">
-                I've helped 15+ businesses hit their targets.
-              </p>
-            </div>
+              <div className="flex items-center -ml-2">
+                <Briefcase className="w-4 h-4" />
+                <span className="ml-3">Hire me</span>
+              </div>
+            </GlowButton>
           </motion.div>
         </div>
       </section>
 
-      {/* Featured Projects Section */}
-      <section className="min-h-screen snap-start">
-        {projects.filter(p => p.featured).map((project, index) => (
-          <motion.div
-            key={project.id}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: index * 0.2, duration: 0.8 }}
-            viewport={{ once: true }}
-            className="relative min-h-[90vh] flex items-center justify-center overflow-hidden cursor-pointer"
-            onClick={() => {
-              if (project.url) {
-                window.open(project.url, '_blank');
-              } else {
-                scrollToSection('work');
-              }
-            }}
-          >
-            {/* Background Image */}
-            <div className="absolute inset-0 z-0">
-              <img 
-                src={project.image} 
-                alt={project.name}
-                className="w-full h-full object-cover"
-              />
-              {/* Dark overlay for text readability */}
-              <div className="absolute inset-0 bg-black/40"></div>
-            </div>
+      {/* Projects Section */}
+      <section id="work" className="min-h-screen px-4 sm:px-8 lg:px-16 py-16 sm:py-24 lg:py-32 snap-start">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <div className="flex items-center gap-4 mb-12">
+            <span className="text-label text-trifecta-red">Selected Work</span>
+            <div className="flex-1 h-px bg-border"></div>
+            <span className="text-caption text-muted-foreground">2024-25©</span>
+          </div>
 
-            {/* Content Overlay */}
-            <div className="relative z-10 w-full h-full flex flex-col justify-between p-8 sm:p-12 lg:p-16">
-              {/* Top Row */}
-              <div className="flex justify-between items-start">
-                {/* Year Tag - Top Left */}
-                <span className="text-caption text-white/60 font-mono">
-                  /{project.year}
-                </span>
-                
-                {/* Project Index - Top Right */}
-                <span className="text-caption text-white font-mono">
-                  /{String(index + 1).padStart(3, '0')}/
-                </span>
-              </div>
+          <h2 className="text-sm sm:text-base md:text-lg mb-8 text-white max-w-4xl leading-relaxed">
+            Design is intriguing. It isn't just about making something look aesthetics. That is just the icing on the cake, for sure. But to me, design at its core, is method of problem solving. Solutions can sometimes be approached in a variety of ways, and design is a medium that helps you navigate and validate those possibilities, to reach the solution best suited to the problem
+          </h2>
 
-              {/* Center Content */}
-              <div className="flex-1 flex flex-col justify-center">
-                <div className="max-w-2xl">
-                  {/* Project Title */}
-                  <h2 className="text-headline text-white font-bold mb-4">
-                    {project.name}
-                  </h2>
-                  
-                  {/* Project Description */}
-                  <p className="text-body-large text-white/80">
-                    {project.description}
-                  </p>
-                </div>
-              </div>
-
-              {/* Bottom Row */}
-              <div className="flex justify-between items-end">
-                {/* Featured Tag - Bottom Left */}
-                <span className="text-caption text-highlight-red font-semibold bg-white/10 px-3 py-1 rounded">
-                  Featured
-                </span>
-                
-                {/* Project Brand/Name - Bottom Right */}
-                <div className="text-right">
-                  <span className="text-body text-white/60 font-medium">
-                    {project.name.includes('Swiggy') ? 'Swiggy' : 
-                     project.name.includes('DigiLocker') ? 'DigiLocker' : 
-                     project.name.split(',')[0]}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        ))}
+          <div className="relative">
+            <GlassCardsDemo />
+          </div>
+        </motion.div>
       </section>
 
       {/* About Section */}
@@ -278,28 +216,85 @@ const MainContent: React.FC = () => {
         </div>
       </section>
 
-      {/* Projects Section */}
-      <section id="work" className="min-h-screen px-4 sm:px-8 lg:px-16 py-16 sm:py-24 lg:py-32 snap-start">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <div className="flex items-center gap-4 mb-12">
-            <span className="text-label text-trifecta-red">Selected Work</span>
-            <div className="flex-1 h-px bg-border"></div>
-            <span className="text-caption text-muted-foreground">2024-25©</span>
-          </div>
+      {/* Featured Projects Section */}
+      <section className="min-h-screen snap-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-screen">
+          {projects.filter(p => p.featured).map((project, index) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.2, duration: 0.8 }}
+              viewport={{ once: true }}
+              className="relative h-full flex items-center justify-center overflow-hidden cursor-pointer group"
+              onClick={() => {
+                if (project.url) {
+                  window.open(project.url, '_blank');
+                } else {
+                  scrollToSection('work');
+                }
+              }}
+            >
+              {/* Background Image */}
+              <div className="absolute inset-0 z-0">
+                <img 
+                  src={project.image} 
+                  alt={project.name}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                {/* Gradient overlay for better text readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20"></div>
+              </div>
 
-          <h2 className="text-sm sm:text-base md:text-lg mb-8 text-white max-w-4xl leading-relaxed">
-            Design is intriguing. It isn't just about making something look aesthetics. That is just the icing on the cake, for sure. But to me, design at its core, is method of problem solving. Solutions can sometimes be approached in a variety of ways, and design is a medium that helps you navigate and validate those possibilities, to reach the solution best suited to the problem
-          </h2>
+              {/* Content Overlay */}
+              <div className="relative z-10 w-full h-full flex flex-col justify-between p-6 sm:p-8 lg:p-10">
+                {/* Top Row */}
+                <div className="flex justify-between items-start">
+                  {/* Year Tag - Top Left */}
+                  <span className="text-sm text-white/70 font-mono bg-black/30 px-3 py-1 rounded-full backdrop-blur-sm">
+                    /{project.year}
+                  </span>
+                  
+                  {/* Project Index - Top Right */}
+                  <span className="text-sm text-white/70 font-mono bg-black/30 px-3 py-1 rounded-full backdrop-blur-sm">
+                    /{String(index + 1).padStart(2, '0')}/
+                  </span>
+                </div>
 
-          <div className="relative">
-            <GlassCardsDemo />
-          </div>
-        </motion.div>
+                {/* Center Content */}
+                <div className="flex-1 flex flex-col justify-center">
+                  <div className="max-w-lg">
+                    {/* Project Title */}
+                    <h2 className="text-2xl sm:text-3xl lg:text-4xl text-white font-bold mb-4 leading-tight">
+                      {project.name}
+                    </h2>
+                    
+                    {/* Project Description */}
+                    <p className="text-sm sm:text-base text-white/80 leading-relaxed">
+                      {project.description}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Bottom Row */}
+                <div className="flex justify-between items-end">
+                  {/* Featured Tag - Bottom Left */}
+                  <span className="text-sm text-highlight-red font-semibold bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm">
+                    Featured Case Study
+                  </span>
+                  
+                  {/* External Link Indicator */}
+                  <div className="flex items-center gap-2 text-white/70 group-hover:text-white transition-colors">
+                    <span className="text-sm">View Case Study</span>
+                    <svg className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17L17 7M17 7H7M17 7V17" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </section>
 
       {/* Contact Section */}
@@ -362,9 +357,9 @@ const MainContent: React.FC = () => {
                     className="w-full p-4 border border-border rounded-lg transition-all duration-200"
                   />
                 </div>
-                <button type="submit" className="btn-trifecta-primary w-full">
+                <GlowButton type="submit" className="w-full">
                   Send Message
-                </button>
+                </GlowButton>
               </form>
             </div>
           </div>

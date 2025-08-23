@@ -1,10 +1,10 @@
 
+/* Import scroll-snap styles */
+@import './styles/scroll-snap.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Import scroll-snap styles */
-@import './styles/scroll-snap.css';
 
 /* Hide scrollbar for Chrome, Safari and Opera */
 .scrollbar-hide::-webkit-scrollbar {
@@ -21,6 +21,29 @@
 .overflow-x-auto {
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+/* Force horizontal scrolling container */
+.scroll-container {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1.5rem;
+}
+
+/* Ensure cards don't shrink and maintain proper spacing */
+.flex-shrink-0 {
+  flex-shrink: 0;
+  flex-grow: 0;
 }
 
 /* Prevent text selection during scroll */
@@ -29,6 +52,62 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+/* Force horizontal scrolling on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+  }
+}
+
+/* Ensure proper card spacing and scrolling */
+.cards-scroll-container {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 1.5rem;
+  width: 100%;
+}
+
+.cards-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.cards-scroll-container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Completely hide any scroll indicators or arrows */
+* {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Ensure no pseudo-elements create scroll indicators */
+*::before,
+*::after {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+*::before::-webkit-scrollbar,
+*::after::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 /* Custom scrollbar for webkit browsers */

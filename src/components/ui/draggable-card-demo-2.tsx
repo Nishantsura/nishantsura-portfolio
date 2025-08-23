@@ -67,10 +67,19 @@ export default function DraggableCardDemo() {
 
   const items = [
     {
+      title: "Autostock AI",
+      image: "/images/projects/Autostock AI.png",
+      description: "AI-powered stock insights and predictive analytics platform - Real-time market analysis and automated trading signals",
+      className: "absolute top-20 left-[15%] rotate-[-5deg]",
+      year: "2025",
+      id: "000",
+      url: "https://stockai-insight-pilot.vercel.app/"
+    },
+    {
       title: "ES Rentals, Dubai",
       image: "/images/projects/Autoluxe DXB.png",
       description: "Launched luxury car rental platform in 6 weeks - Integrated payment and booking system",
-      className: "absolute top-20 left-[15%] rotate-[-5deg]",
+      className: "absolute top-60 left-[20%] rotate-[-7deg]",
       year: "2025",
       id: "001"
     },
@@ -78,7 +87,7 @@ export default function DraggableCardDemo() {
       title: "ProQuo Technologies",
       image: "/images/projects/Proquo.png",
       description: "Created B2B networking platform - Real-time messaging and profile matching",
-      className: "absolute top-60 left-[20%] rotate-[-7deg]",
+      className: "absolute top-10 left-[35%] rotate-[8deg]",
       year: "2024",
       id: "002"
     },
@@ -86,17 +95,9 @@ export default function DraggableCardDemo() {
       title: "Swiggy Case Study",
       image: "/images/projects/swiggy.png",
       description: "Improved delivery partner experience - Research-driven UX optimization",
-      className: "absolute top-10 left-[35%] rotate-[8deg]",
-      year: "2024",
-      id: "003"
-    },
-    {
-      title: "Autostock AI",
-      image: "/images/projects/Autostock AI.png",
-      description: "AI-powered inventory management system - Predictive analytics and automation",
       className: "absolute top-50 left-[50%] rotate-[10deg]",
       year: "2024",
-      id: "004"
+      id: "003"
     },
     {
       title: "Cactus IT Solutions",
@@ -104,7 +105,7 @@ export default function DraggableCardDemo() {
       description: "Enterprise software solutions - Custom development and consulting",
       className: "absolute top-30 right-[25%] rotate-[2deg]",
       year: "2024",
-      id: "005"
+      id: "004"
     },
     {
       title: "Digilocker Integration",
@@ -112,7 +113,7 @@ export default function DraggableCardDemo() {
       description: "Government document management system - Secure digital storage solution",
       className: "absolute top-70 left-[40%] rotate-[-7deg]",
       year: "2023",
-      id: "006"
+      id: "005"
     },
     {
       title: "Webilize Platform",
@@ -120,7 +121,7 @@ export default function DraggableCardDemo() {
       description: "Web development agency platform - Client management and project tracking",
       className: "absolute top-15 left-[25%] rotate-[4deg]",
       year: "2023",
-      id: "007"
+      id: "006"
     },
   ];
   
@@ -154,8 +155,13 @@ export default function DraggableCardDemo() {
         {items.map((item) => (
           <DraggableCardBody 
             key={`${item.id}-${resetTrigger}`} 
-            className={item.className}
+            className={`${item.className} ${item.url ? 'cursor-pointer' : ''}`}
             onReset={addResetFunction}
+            onClick={() => {
+              if (item.url) {
+                window.open(item.url, '_blank', 'noopener,noreferrer');
+              }
+            }}
           >
             <div className="relative">
               <img
@@ -166,6 +172,11 @@ export default function DraggableCardDemo() {
               <div className="absolute top-4 left-4 bg-highlight-red/90 text-white px-3 py-1 rounded text-sm font-medium">
                 /{item.year}/{item.id}/
               </div>
+              {item.url && (
+                <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm text-white px-2 py-1 rounded text-xs font-medium">
+                  ↗
+                </div>
+              )}
             </div>
             <div className="mt-4 space-y-2">
               <h3 className="text-center text-lg md:text-xl font-bold text-neutral-700 dark:text-neutral-300">

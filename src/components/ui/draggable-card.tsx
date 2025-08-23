@@ -15,10 +15,12 @@ export const DraggableCardBody = ({
   className,
   children,
   onReset,
+  onClick,
 }: {
   className?: string;
   children?: React.ReactNode;
   onReset?: (resetFn: () => void) => void;
+  onClick?: () => void;
 }) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -226,6 +228,7 @@ export const DraggableCardBody = ({
       whileHover={{ scale: 1.02 }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
+      onClick={onClick}
       className={cn(
         "relative min-h-72 w-60 md:min-h-96 md:w-80 overflow-hidden rounded-md bg-neutral-100 p-4 md:p-6 shadow-2xl transform-3d dark:bg-neutral-900 transition-shadow duration-300",
         className,

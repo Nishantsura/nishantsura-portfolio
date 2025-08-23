@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import GlassCard from "./glass-card";
-import { Figma, Code, Zap, Database, Palette, Smartphone, Globe, MessageSquare, CreditCard, Truck, Play, Music, Wine, Building2, Car, Calculator } from "lucide-react";
+import { Figma, Code, Zap, Database, Palette, Smartphone, Globe, MessageSquare, CreditCard, Truck, Play, Music, Wine, Building2, Car, Calculator, ChevronLeft, ChevronRight } from "lucide-react";
 
 // Additional icon components
 const FirestoreIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -24,7 +24,7 @@ const FramerIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 const ReactNativeIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-    <path d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.811 0-3.893.913-5.861 2.804a.5.5 0 0 0 .704.704c1.74-1.74 3.47-2.504 5.157-2.504 1.677 0 3.403.773 5.132 2.504a.5.5 0 0 0 .704-.704c-1.968-1.891-4.05-2.804-5.861-2.804zm0 21.382c1.811 0 3.893-.913 5.861-2.804a.5.5 0 0 0-.704-.704c-1.74 1.74-3.47 2.504-5.157 2.504-1.677 0-3.403-.773-5.132-2.504a.5.5 0 0 0-.704.704c1.968 1.891 4.05 2.804 5.861 2.804zM5.135 9.26c-1.74-1.74-3.47-2.504-5.157-2.504-1.677 0-3.403.773-5.132 2.504a.5.5 0 0 0 .704.704c1.74-1.74 3.47-2.504 5.157-2.504 1.677 0 3.403.773 5.132 2.504a.5.5 0 0 0 .704-.704zm13.73 5.48c1.74 1.74 3.47 2.504 5.157 2.504 1.677 0 3.403-.773 5.132-2.504a.5.5 0 0 0-.704-.704c-1.74 1.74-3.47-2.504-5.157-2.504-1.677 0-3.403-.773-5.132-2.504a.5.5 0 0 0-.704.704z"/>
+    <path d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.811 0-3.893.913-5.861 2.804a.5.5 0 0 0 .704.704c1.74-1.74 3.47-2.504 5.157-2.504 1.677 0 3.403.773 5.132 2.504a.5.5 0 0 0 .704-.704c-1.968-1.891-4.05-2.804-5.861-2.804zm0 21.382c1.811 0 3.893-.913 5.861-2.804a.5.5 0 0 0-.704-.704c-1.74 1.74-3.47 2.504-5.157 2.504-1.677 0-3.403-.773-5.132-2.504a.5.5 0 0 0-.704.704c1.968 1.891 4.05 2.804 5.861 2.804zM5.135 9.26c-1.74-1.74-3.47-2.504-5.157-2.504-1.677 0-3.403.773-5.132 2.504a.5.5 0 0 0 .704.704c1.74-1.74 3.47-2.504 5.157-2.504 1.677 0 3.403.773 5.132 2.504a.5.5 0 0 0 .704-.704zm13.73 5.48c1.74 1.74 3.47 2.504 5.157 2.504 1.677 0 3.403-.773 5.132-2.504a.5.5 0 0 0-.704-.704c-1.74 1.74-3.47 2.504-5.157 2.504-1.677 0-3.403-.773-5.132-2.504a.5.5 0 0 0-.704.704z"/>
   </svg>
 );
 
@@ -66,7 +66,59 @@ const TailwindIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 export default function GlassCardsDemo() {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  const scrollLeft = () => {
+    console.log('Scroll left clicked');
+    if (scrollContainerRef.current) {
+      console.log('Scrolling left by 400px');
+      scrollContainerRef.current.scrollBy({
+        left: -400,
+        behavior: 'smooth'
+      });
+    } else {
+      console.log('Scroll container ref is null');
+    }
+  };
+
+  const scrollRight = () => {
+    console.log('Scroll right clicked');
+    if (scrollContainerRef.current) {
+      console.log('Scrolling right by 400px');
+      scrollContainerRef.current.scrollBy({
+        left: 400,
+        behavior: 'smooth'
+      });
+    } else {
+      console.log('Scroll container ref is null');
+    }
+  };
+
+  // Debug scroll container on mount
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      console.log('Scroll container mounted:', scrollContainerRef.current);
+      console.log('Container scrollWidth:', scrollContainerRef.current.scrollWidth);
+      console.log('Container clientWidth:', scrollContainerRef.current.clientWidth);
+      console.log('Can scroll:', scrollContainerRef.current.scrollWidth > scrollContainerRef.current.clientWidth);
+    }
+  }, []);
+
   const projects = [
+    {
+      title: "Autostock AI",
+      description: "AI-powered inventory management system for automotive dealers with intelligent design workflows.",
+      image: "/images/projects/Autostock AI.png",
+      year: "Webapp",
+      url: "",
+      tools: [
+        { name: "React", icon: ReactIcon, color: "#61DAFB" },
+        { name: "TypeScript", icon: TypeScriptIcon, color: "#3178C6" },
+        { name: "Tailwind", icon: TailwindIcon, color: "#06B6D4" },
+        { name: "Figma", icon: Figma, color: "#F24E1E" },
+        { name: "Claude", icon: ClaudeIcon, color: "#FF6B35" },
+      ]
+    },
     {
       title: "ES Rentals",
       description: "Designed and developed a luxury car rental platform in Dubai — start to finish.",
@@ -172,15 +224,37 @@ export default function GlassCardsDemo() {
       viewport={{ once: true, amount: 0.3 }}
     >
       <div className="relative w-full px-4 sm:px-6 lg:px-8">
-        {/* Scroll indicator */}
-        <div className="flex justify-end items-center mb-4 text-white/60 text-sm">
-          <span className="flex items-center gap-1">
-            <span>←</span>
-            <span>→</span>
-          </span>
+        {/* Single scroll controls - positioned above cards */}
+        <div className="flex justify-center items-center mb-6">
+          <div className="flex gap-2">
+            <button
+              onClick={scrollLeft}
+              className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors text-white/70 hover:text-white"
+              aria-label="Scroll left"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button
+              onClick={scrollRight}
+              className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors text-white/70 hover:text-white"
+              aria-label="Scroll right"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
         </div>
         
-        <div className="flex gap-6 overflow-x-auto pb-6 scrollbar-hide scroll-smooth pr-4 sm:pr-6 lg:pr-8 max-w-full snap-x snap-mandatory px-4">
+        {/* Cards container with proper scrolling */}
+        <div 
+          ref={scrollContainerRef}
+          className="cards-scroll-container scrollbar-hide snap-x snap-mandatory"
+          style={{ 
+            scrollbarWidth: 'none', 
+            msOverflowStyle: 'none',
+            WebkitOverflowScrolling: 'touch',
+            scrollBehavior: 'smooth'
+          }}
+        >
           {projects.map((project, index) => (
             <motion.div
               key={index}

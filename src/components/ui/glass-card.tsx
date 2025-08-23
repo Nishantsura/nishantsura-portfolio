@@ -41,10 +41,17 @@ export interface GlassCardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
   ({ className, title, description, image, tools, year, url, ...props }, ref) => {
+    const handleCardClick = () => {
+      if (url) {
+        window.open(url, '_blank', 'noopener,noreferrer');
+      }
+    };
+
     return (
       <div
         ref={ref}
-        className={`group h-[380px] sm:h-[400px] w-full [perspective:1000px] p-2 ${className}`}
+        className={`group h-[380px] sm:h-[400px] w-full [perspective:1000px] p-2 ${className} ${url ? 'cursor-pointer' : ''}`}
+        onClick={handleCardClick}
         {...props}
       >
         <div className="relative h-full rounded-[30px] bg-gradient-to-br from-zinc-900 to-black shadow-2xl transition-all duration-700 ease-out [transform-style:preserve-3d] group-hover:[box-shadow:rgba(0,0,0,0.3)_30px_50px_25px_-40px,rgba(0,0,0,0.1)_0px_25px_30px_0px] group-hover:[transform:rotate3d(1,1,0,8deg)]">
@@ -95,6 +102,7 @@ const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
                     className="group/tool grid h-[32px] w-[32px] place-content-center rounded-full border-none bg-white/10 backdrop-blur-sm shadow-[rgba(0,0,0,0.5)_0px_7px_5px_-5px] transition-all duration-300 ease-out group-hover:[box-shadow:rgba(0,0,0,0.2)_-5px_20px_10px_0px] group-hover:[transform:translate3d(0,0,30px)] hover:bg-white/20 active:bg-yellow-400"
                     style={{ transitionDelay: `${(index + 1) * 100}ms` }}
                     title={tool.name}
+                    onClick={(e) => e.stopPropagation()} // Prevent card click when clicking tools
                   >
                     <Icon className="h-4 w-4 stroke-white transition-colors" />
                   </button>
@@ -105,7 +113,8 @@ const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
             {/* CTA */}
             <div 
               className={`flex w-2/5 items-center justify-end transition-all duration-300 ease-out hover:[transform:translate3d(0,0,8px)] ${url ? 'cursor-pointer' : 'cursor-default'}`}
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent double triggering
                 if (url) {
                   window.open(url, '_blank', 'noopener,noreferrer');
                 }

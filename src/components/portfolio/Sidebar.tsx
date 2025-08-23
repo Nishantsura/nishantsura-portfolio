@@ -19,8 +19,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activeSection, onSectionChange }) => 
     { id: 'hero', label: 'Home', path: '/Home' },
     { id: 'about', label: 'About', path: '/About' },
     { id: 'work', label: 'Case Studies', path: '/Case Studies', tag: '/002/' },
-    { id: 'blog', label: 'Featured work', path: '/Featured work' },
-    { id: 'contact', label: 'Contact', path: '/Contact' },
+    { id: 'blog', label: 'Builds', path: '/Builds' },
+    { id: 'contact', label: 'Connect', path: '/Connect' },
   ];
 
   return (

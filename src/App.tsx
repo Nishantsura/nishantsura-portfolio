@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/components/ui/theme-provider";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import TetrisLoaderDemo from "@/components/ui/tetris-loader-demo";
+import RaycastAnimatedBackgroundDemo from "@/components/ui/raycast-animated-background-demo";
 
 const queryClient = new QueryClient();
 
@@ -19,10 +20,11 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/tetris-demo" element={<TetrisLoaderDemo />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
+                      <Route path="/" element={<Index />} />
+          <Route path="/tetris-demo" element={<TetrisLoaderDemo />} />
+          <Route path="/animated-background-demo" element={<RaycastAnimatedBackgroundDemo />} />
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </TooltipProvider>

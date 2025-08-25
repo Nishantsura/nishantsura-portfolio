@@ -5,10 +5,11 @@ import type { Project } from "@/types/experience";
 import { ChevronLeft, ChevronRight, X, Car, Users, ShoppingBag, Database, Shield, Code } from "lucide-react";
 import AnimateOnScroll, { StaggerItem } from "@/components/animations/AnimateOnScroll";
 import RadialOrbitalTimeline from "@/components/ui/radial-orbital-timeline";
+import { ProjectTiltCard } from "@/components/ui/project-tilt-card";
 
 const WorkExperience = () => {
   const [showPopup, setShowPopup] = useState(false);
-  const [viewMode, setViewMode] = useState<"cards" | "orbital">("orbital");
+  const [viewMode, setViewMode] = useState<"cards" | "orbital">("cards");
 
   // Projects array for cards view
   const projects: Project[] = [
@@ -248,95 +249,27 @@ const WorkExperience = () => {
               </motion.button>
             </div>
             <div 
-              className="grid grid-cols-1 gap-4 sm:flex sm:flex-row sm:overflow-x-auto sm:snap-x sm:snap-mandatory sm:scrollbar-hide pb-6"
+              className="grid grid-cols-1 gap-6 sm:flex sm:flex-row sm:overflow-x-auto sm:snap-x sm:snap-mandatory sm:scrollbar-hide pb-6"
               ref={scrollContainerRef}
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
-            {projects.map((project) => (
+            {projects.map((project, index) => (
               <motion.div
                 key={project.id}
-                className="flex-shrink-0 sm:w-[300px] md:w-[320px] lg:w-[360px] sm:mr-6 sm:last:mr-16 relative group sm:snap-start"
+                className="flex-shrink-0 sm:mr-6 sm:last:mr-16 sm:snap-start"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
+                transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
                 viewport={{ once: true }}
-                whileHover={{ y: -5, boxShadow: "0 10px 25px rgba(0,0,0,0.05)" }}
-                whileTap={{ scale: 0.99 }}
-                style={{
-                  cursor: project.isUnderConstruction || project.url ? "pointer" : "default"
-                }}
-                onClick={() => {
-                  if (project.isUnderConstruction) {
-                    setShowPopup(true);
-                  } else if (project.url) {
-                    window.open(project.url, '_blank', 'noopener,noreferrer');
-                  }
-                }}
               >
-                <motion.div 
-                  className="text-left mb-4 px-2 relative z-10"
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ delay: 0.2, duration: 0.3 }}
-                  viewport={{ once: true }}
-                >
-                  <div className="text-gray-500 text-sm mb-1 font-medium transition-colors group-hover:text-black">{project.id}.</div>
-                  <div className="text-sm font-medium text-gray-900 mb-1 transition-all group-hover:text-black group-hover:font-semibold flex items-center">
-                    {project.name}
-                    {!project.isUnderConstruction && project.url && (
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 ml-1.5 opacity-0 group-hover:opacity-100 transition-opacity" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
-                        <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
-                      </svg>
-                    )}
-                    {project.isUnderConstruction && (
-                      <span className="ml-1.5 text-xs py-0.5 px-1.5 bg-gray-200 text-gray-600 rounded opacity-0 group-hover:opacity-100 transition-opacity">Coming Soon</span>
-                    )}
-                  </div>
-                  <div className="text-xs text-gray-500 mb-1 transition-colors group-hover:text-gray-700">
-                    {project.category}
-                  </div>
-                  {project.description && (
-                    <div className="text-xs text-gray-600 mt-1 line-clamp-2">
-                      {project.description}
-                    </div>
-                  )}
-                </motion.div>
-                
-                <motion.div 
-                  className="overflow-hidden rounded-md relative"
-                  whileHover={{ boxShadow: "0 10px 30px rgba(0,0,0,0.1)" }}
-                >
-                  {!project.isUnderConstruction && project.url && (
-                    <div className="absolute top-3 right-3 bg-white bg-opacity-90 rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-800" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
-                        <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
-                      </svg>
-                    </div>
-                  )}
-                  {project.isUnderConstruction && (
-                    <div className="absolute top-3 right-3 bg-gray-800 bg-opacity-90 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                      Coming Soon
-                    </div>
-                  )}
-                  <div className="w-full h-[250px] sm:h-[300px] md:h-[350px] overflow-hidden relative">
-                    <motion.img 
-                      src={project.image} 
-                      alt={project.name} 
-                      className="w-full h-full object-cover absolute inset-0 transform transition-all duration-500"
-                      style={{ objectPosition: 'center' }}
-                      whileHover={{ scale: 1.02, filter: "brightness(1.05)" }}
-                      transition={{ duration: 0.4, ease: "easeOut" }}
-                      onError={(e) => {
-                        // Fallback image if the main one fails to load
-                        const target = e.target as HTMLImageElement;
-                        console.log(`Image load error for ${project.name}, using fallback`);
-                        target.src = `/case-study-${parseInt(project.id) % 2 + 1}.jpg`;
-                      }}
-                    />
-                  </div>
-                </motion.div>
+                <ProjectTiltCard 
+                  project={project}
+                  onClick={() => {
+                    if (project.isUnderConstruction) {
+                      setShowPopup(true);
+                    }
+                  }}
+                />
               </motion.div>
             ))}
             </div>

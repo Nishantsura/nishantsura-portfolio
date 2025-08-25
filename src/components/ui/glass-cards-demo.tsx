@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import GlassCard from "./glass-card";
 import { Figma, Code, Zap, Database, Palette, Smartphone, Globe, MessageSquare, CreditCard, Truck, Play, Music, Wine, Building2, Car, Calculator, ChevronLeft, ChevronRight } from "lucide-react";
@@ -67,15 +67,18 @@ const TailwindIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 export default function GlassCardsDemo() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [isScrolling, setIsScrolling] = useState(false);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const scrollLeft = () => {
     console.log('Scroll left clicked');
     if (scrollContainerRef.current) {
-      console.log('Scrolling left by 400px');
+      console.log('Current scroll position:', scrollContainerRef.current.scrollLeft);
       scrollContainerRef.current.scrollBy({
         left: -400,
         behavior: 'smooth'
       });
+      console.log('Scrolling left by 400px');
     } else {
       console.log('Scroll container ref is null');
     }
@@ -84,11 +87,12 @@ export default function GlassCardsDemo() {
   const scrollRight = () => {
     console.log('Scroll right clicked');
     if (scrollContainerRef.current) {
-      console.log('Scrolling right by 400px');
+      console.log('Current scroll position:', scrollContainerRef.current.scrollLeft);
       scrollContainerRef.current.scrollBy({
         left: 400,
         behavior: 'smooth'
       });
+      console.log('Scrolling right by 400px');
     } else {
       console.log('Scroll container ref is null');
     }
@@ -101,8 +105,30 @@ export default function GlassCardsDemo() {
       console.log('Container scrollWidth:', scrollContainerRef.current.scrollWidth);
       console.log('Container clientWidth:', scrollContainerRef.current.clientWidth);
       console.log('Can scroll:', scrollContainerRef.current.scrollWidth > scrollContainerRef.current.clientWidth);
+      
+      // Test scroll functionality
+      setTimeout(() => {
+        if (scrollContainerRef.current) {
+          console.log('Testing scroll functionality...');
+          scrollContainerRef.current.scrollLeft = 100;
+          console.log('Scroll position after test:', scrollContainerRef.current.scrollLeft);
+        }
+      }, 1000);
     }
   }, []);
+
+  // Handle scroll events
+  const handleScroll = () => {
+    if (scrollContainerRef.current) {
+      setIsScrolling(true);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+      scrollTimeoutRef.current = setTimeout(() => {
+        setIsScrolling(false);
+      }, 150);
+    }
+  };
 
   const projects = [
     {
@@ -229,49 +255,59 @@ export default function GlassCardsDemo() {
           <div className="flex gap-2">
             <button
               onClick={scrollLeft}
-              className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors text-white/70 hover:text-white"
+              className={`p-2 rounded-full transition-colors ${
+                isScrolling 
+                  ? 'bg-white/20 text-white' 
+                  : 'bg-white/10 hover:bg-white/20 text-white/70 hover:text-white'
+              }`}
               aria-label="Scroll left"
+              disabled={isScrolling}
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
             <button
               onClick={scrollRight}
-              className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors text-white/70 hover:text-white"
+              className={`p-2 rounded-full transition-colors ${
+                isScrolling 
+                  ? 'bg-white/20 text-white' 
+                  : 'bg-white/10 hover:bg-white/20 text-white/70 hover:text-white'
+              }`}
               aria-label="Scroll right"
+              disabled={isScrolling}
             >
               <ChevronRight className="w-4 h-4" />
             </button>
           </div>
         </div>
         
-        {/* Cards container with proper scrolling */}
-        <div 
-          ref={scrollContainerRef}
-          className="cards-scroll-container scrollbar-hide snap-x snap-mandatory"
-          style={{ 
-            scrollbarWidth: 'none', 
-            msOverflowStyle: 'none',
-            WebkitOverflowScrolling: 'touch',
-            scrollBehavior: 'smooth'
-          }}
-        >
-          {projects.map((project, index) => (
-            <motion.div
-              key={index}
-              className="flex-shrink-0 w-[300px] sm:w-[350px] lg:w-[380px] snap-start p-2"
-              variants={cardVariants}
-            >
-              <GlassCard
-                title={project.title}
-                description={project.description}
-                image={project.image}
-                tools={project.tools}
-                year={project.year}
-                url={project.url}
-                className="w-full h-auto transform transition-all duration-700 ease-out hover:scale-[1.02] hover:-translate-y-2"
-              />
-            </motion.div>
-          ))}
+        {/* Cards container with proper horizontal scrolling */}
+        <div className="relative">
+          <div 
+            ref={scrollContainerRef}
+            className="cards-horizontal-scroll"
+            onScroll={handleScroll}
+          >
+            {projects.map((project, index) => (
+              <motion.div
+                key={index}
+                className="flex-shrink-0 w-[300px] sm:w-[350px] lg:w-[380px] snap-start"
+                variants={cardVariants}
+              >
+                <GlassCard
+                  title={project.title}
+                  description={project.description}
+                  image={project.image}
+                  tools={project.tools}
+                  year={project.year}
+                  url={project.url}
+                  className="w-full h-auto transform transition-all duration-700 ease-out hover:scale-[1.02] hover:-translate-y-2"
+                />
+              </motion.div>
+            ))}
+          </div>
+          
+          {/* Gradient overlay to indicate more content */}
+          <div className="absolute top-0 right-0 w-20 h-full bg-gradient-to-l from-black/20 to-transparent pointer-events-none"></div>
         </div>
       </div>
     </motion.div>

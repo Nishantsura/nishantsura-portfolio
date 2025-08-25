@@ -54,7 +54,15 @@ const Contact = () => {
               </div>
               
               <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-white">Social</h3>
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xl font-semibold text-white">Social</h3>
+                  
+                  {/* Available for work status */}
+                  <div className="flex items-center space-x-2 bg-[#222] px-3 py-2 rounded-lg border border-[#333]">
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                    <span className="text-sm text-white font-medium">Available for work</span>
+                  </div>
+                </div>
                 
                 <ul className="space-y-4 relative z-10">
                   {contactLinks.map((link, index) => (

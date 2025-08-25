@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Briefcase } from "lucide-react";
-import GlassCardsDemo from "@/components/ui/glass-cards-demo";
+import { PinContainer } from "@/components/ui/3d-pin";
 import { Component as AnimatedBackground } from "@/components/ui/raycast-animated-background";
 import { GlowButton } from "@/components/ui/shiny-button-1";
 
@@ -54,6 +54,54 @@ const MainContent: React.FC = () => {
       description: "Improved delivery partner experience – Research-driven UX optimization",
       image: "/images/projects/swiggy.png",
       featured: false
+    }
+  ];
+
+  // New project data for 3D Pin cards
+  const projectCards = [
+    {
+      id: '01',
+      title: 'Autostock AI',
+      description: 'AI-powered inventory management system for automotive dealers',
+      stats: {
+        tech: 'React, Node.js, Hugging Face, MongoDB'
+      },
+      status: 'Live',
+      url: 'https://stockai-insight-pilot.vercel.app/',
+      color: 'rose'
+    },
+    {
+      id: '02',
+      title: 'ES Rentals',
+      description: 'Luxury car rental platform with premium concierge services',
+      stats: {
+        tech: 'Vite, Firebase, Vercel'
+      },
+      status: 'Live',
+      url: 'https://www.esrentacar.ae/',
+      color: 'emerald'
+    },
+    {
+      id: '03',
+      title: 'CactusITS',
+      description: 'Enterprise software solutions and custom development',
+      stats: {
+        tech: 'Vite, Supabase, Vercel'
+      },
+      status: 'Live',
+      url: 'https://www.cactusits.com/',
+      color: 'violet'
+    },
+    {
+      id: '04',
+      title: 'ProQuo',
+      description: 'Professional business networking platform for tech professionals',
+      stats: {
+        tech: 'Node.js, Vite, Supabase, Vercel'
+      },
+      status: 'Live',
+      url: 'https://giant-walkthroughs-221939.framer.app/',
+      color: 'amber'
     }
   ];
 
@@ -143,8 +191,56 @@ const MainContent: React.FC = () => {
             Design is intriguing. It isn't just about making something look aesthetics. That is just the icing on the cake, for sure. But to me, design at its core, is method of problem solving. Solutions can sometimes be approached in a variety of ways, and design is a medium that helps you navigate and validate those possibilities, to reach the solution best suited to the problem
           </h2>
 
+          {/* 3D Pin Project Cards Grid */}
           <div className="relative">
-            <GlassCardsDemo />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-20 lg:gap-24 justify-items-center">
+              {projectCards.map((project) => {
+                return (
+                  <PinContainer
+                    key={project.id}
+                    title="view project"
+                    href={project.url}
+                    containerClassName="w-full max-w-sm"
+                  >
+                    <div className="flex flex-col p-4 tracking-tight text-slate-100/50 w-[20rem] h-[20rem] bg-gradient-to-b from-slate-800/50 to-slate-800/0 backdrop-blur-sm border border-slate-700/50 rounded-2xl">
+                      {/* Header */}
+                      <div className="flex items-center gap-2">
+                        <div className={`size-3 rounded-full bg-${project.color}-400/60 animate-pulse`} />
+                        <div className="text-xs text-slate-400">{project.status}</div>
+                      </div>
+
+                      {/* Content */}
+                      <div className="flex-1 mt-6 space-y-6">
+                        <div className="space-y-2">
+                          <div className="text-2xl font-bold text-slate-100">
+                            {project.title}
+                          </div>
+                          
+                          <p className="text-sm text-slate-400 leading-relaxed">
+                            {project.description}
+                          </p>
+                        </div>
+                        
+                        {/* Tech Stack */}
+                        <div className="space-y-2">
+                          <div className="text-xs text-slate-400 uppercase tracking-wider">Tech Stack</div>
+                          <div className="text-xs text-slate-300 font-medium leading-relaxed">
+                            {project.stats.tech}
+                          </div>
+                        </div>
+
+                        {/* Footer */}
+                        <div className="flex justify-between items-end">
+                          <div className="text-xs text-slate-400">
+                            Project #{project.id}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </PinContainer>
+                );
+              })}
+            </div>
           </div>
         </motion.div>
       </section>
@@ -158,7 +254,6 @@ const MainContent: React.FC = () => {
             <div className="lg:col-span-2 flex items-start justify-start pt-8 lg:pt-0">
               <div className="text-left">
                 <h3 className="text-2xl font-bold text-black mb-2">(n) nishant sura</h3>
-                <p className="text-sm text-gray-600">Product Manager & Designer</p>
               </div>
             </div>
             
@@ -178,32 +273,33 @@ const MainContent: React.FC = () => {
                 </div>
 
                 <h2 className="text-headline mb-8 text-black pl-8 md:pl-12 lg:pl-16 max-w-full">
-                  From captivating product design and development to performance-driven 
-                  strategies, I offer end-to-end services to accelerate your brand's success.
+                  Struggling to ship your AI product? I help AI startups go from concept to 
+                  production in weeks, not months. Full-stack development meets strategic thinking.
                 </h2>
 
                 <p className="text-body-large text-black/70 mb-8 pl-8 md:pl-12 lg:pl-16 max-w-full">
-                  My cross-functional approach combines product management, UX design, and 
-                  strategic thinking to deliver exceptional results across all digital touchpoints.
+                  I bridge the gap between AI research and user adoption. From building scalable 
+                  ML pipelines to designing interfaces that make AI accessible, I deliver products 
+                  that users actually want to use.
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pl-8 md:pl-12 lg:pl-16">
                   <div>
-                    <h3 className="text-body font-semibold mb-4 text-black">What I Do</h3>
+                    <h3 className="text-body font-semibold mb-4 text-black">If you're in need for</h3>
                     <ul className="space-y-2 text-body text-black/70">
-                      <li>• Product Strategy & Roadmapping</li>
-                      <li>• User Experience Design</li>
-                      <li>• Product Management</li>
-                      <li>• Product Development</li>
+                      <li>• React/Next.js frontend with TypeScript</li>
+                      <li>• Python ML pipelines with FastAPI/Flask</li>
+                      <li>• Database design (PostgreSQL, MongoDB)</li>
+                      <li>• API integration & third-party services</li>
                     </ul>
                   </div>
                   <div>
-                    <h3 className="text-body font-semibold mb-4 text-black">Industries</h3>
+                    <h3 className="text-body font-semibold mb-4 text-black">What I can do</h3>
                     <ul className="space-y-2 text-body text-black/70">
-                      <li>• FinTech & Financial Services</li>
-                      <li>• E-commerce & Retail</li>
-                      <li>• Healthcare Technology</li>
-                      <li>• B2B SaaS Platforms</li>
+                      <li>• Build responsive UIs with Tailwind CSS</li>
+                      <li>• Deploy ML models on AWS/GCP with Docker</li>
+                      <li>• Set up CI/CD pipelines with GitHub Actions</li>
+                      <li>• Integrate payment systems (Stripe, PayPal)</li>
                     </ul>
                   </div>
                 </div>

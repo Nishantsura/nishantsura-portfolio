@@ -83,7 +83,7 @@ const Index = () => {
   return (
     <div className="flex min-h-screen bg-neutral-bg text-text-primary">
       {/* Left Sidebar - Fixed position */}
-      <div className="hidden lg:block w-[320px] flex-shrink-0 bg-white fixed top-0 left-0 h-screen z-40">
+      <div className="hidden lg:block w-[256px] flex-shrink-0 bg-white fixed top-0 left-0 h-screen z-40">
         <Sidebar
           activeSection={activeSection}
           onSectionChange={setActiveSection}
@@ -91,7 +91,7 @@ const Index = () => {
       </div>
 
       {/* Main Content - Scrollable with left margin for sidebar */}
-      <div className="flex-1 bg-black lg:ml-[320px] overflow-x-hidden">
+      <div className="flex-1 bg-black lg:ml-[256px] overflow-x-hidden">
         {/* Mobile Header */}
         <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-black border-b border-white/20 p-4">
           <div className="flex justify-between items-center">

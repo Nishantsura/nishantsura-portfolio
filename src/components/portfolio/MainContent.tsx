@@ -4,6 +4,7 @@ import { ArrowUpRight, Briefcase } from "lucide-react";
 import { PinContainer } from "@/components/ui/3d-pin";
 import { Component as AnimatedBackground } from "@/components/ui/raycast-animated-background";
 import { GlowButton } from "@/components/ui/shiny-button-1";
+import { FeaturesSectionWithHoverEffects } from "@/components/ui/feature-section-with-hover-effects";
 
 const MainContent: React.FC = () => {
   const scrollToSection = (sectionId: string) => {
@@ -246,74 +247,43 @@ const MainContent: React.FC = () => {
       </section>
 
       {/* About Section */}
-      <section id="about" className="min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-16 sm:py-24 lg:py-32 bg-white relative snap-start">
+      <section id="about" className="min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-16 sm:py-24 lg:py-32 bg-black relative snap-start">
         <div className="max-w-6xl mx-auto w-full">
-          {/* Grid Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 w-full">
-            {/* Left Column - Logo/Name */}
-            <div className="lg:col-span-2 flex items-start justify-start pt-8 lg:pt-0">
-              <div className="text-left">
-                <h3 className="text-2xl font-bold text-black mb-2">(n) nishant sura</h3>
+          {/* Main Content */}
+          <div className="w-full max-w-5xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="w-full"
+            >
+              <div className="flex items-center gap-4 mb-6">
+                <span className="text-sm font-medium text-trifecta-red">About Me</span>
+                <div className="flex-1 h-px bg-white/20"></div>
+                <span className="text-xs text-white/60">15+ Projects delivered</span>
               </div>
-            </div>
-            
-            {/* Center Column - Main Content */}
-            <div className="lg:col-span-8">
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
-                className="w-full"
-              >
-                <div className="flex items-center gap-4 mb-8">
-                  <span className="text-label text-trifecta-red">About Me</span>
-                  <div className="flex-1 h-px bg-border"></div>
-                  <span className="text-caption text-muted-foreground">15+ Projects delivered</span>
-                </div>
 
-                <h2 className="text-headline mb-8 text-black pl-8 md:pl-12 lg:pl-16 max-w-full">
-                  Struggling to ship your AI product? I help AI startups go from concept to 
-                  production in weeks, not months. Full-stack development meets strategic thinking.
-                </h2>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-8 text-white max-w-full leading-tight">
+                Most AI startups fail not because their models don't work, but because their products don't. Research sits in notebooks, users wrestle with clunky interfaces, APIs misfire, and deployments break under load.{' '}
+                <span className="bg-gradient-to-r from-orange-400 via-red-500 to-orange-600 bg-clip-text text-transparent animate-slow-gradient">
+                  I solve these gaps.
+                </span>
+              </h2>
 
-                <p className="text-body-large text-black/70 mb-8 pl-8 md:pl-12 lg:pl-16 max-w-full">
-                  I bridge the gap between AI research and user adoption. From building scalable 
-                  ML pipelines to designing interfaces that make AI accessible, I deliver products 
-                  that users actually want to use.
-                </p>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pl-8 md:pl-12 lg:pl-16">
-                  <div>
-                    <h3 className="text-body font-semibold mb-4 text-black">If you're in need for</h3>
-                    <ul className="space-y-2 text-body text-black/70">
-                      <li>• React/Next.js frontend with TypeScript</li>
-                      <li>• Python ML pipelines with FastAPI/Flask</li>
-                      <li>• Database design (PostgreSQL, MongoDB)</li>
-                      <li>• API integration & third-party services</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <h3 className="text-body font-semibold mb-4 text-black">What I can do</h3>
-                    <ul className="space-y-2 text-body text-black/70">
-                      <li>• Build responsive UIs with Tailwind CSS</li>
-                      <li>• Deploy ML models on AWS/GCP with Docker</li>
-                      <li>• Set up CI/CD pipelines with GitHub Actions</li>
-                      <li>• Integrate payment systems (Stripe, PayPal)</li>
-                    </ul>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-            
-            {/* Right Column - Empty space for spacing */}
-            <div className="lg:col-span-2"></div>
+              <div className="w-full">
+                <h3 className="text-lg font-semibold mb-6 text-white">
+                  If you're in need of → Here's how I solve it ⬇️
+                </h3>
+                <FeaturesSectionWithHoverEffects />
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* Featured Projects Section */}
-      <section className="min-h-screen snap-start">
+      <section id="featured-projects" className="min-h-screen snap-start">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-screen">
           {projects.filter(p => p.featured).map((project, index) => (
             <motion.div
@@ -394,7 +364,7 @@ const MainContent: React.FC = () => {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-16 sm:py-24 lg:py-32 bg-white snap-start">
+      <section id="contact" className="min-h-screen flex flex-col justify-center px-4 sm:px-8 lg:px-16 py-16 sm:py-24 lg:py-32 bg-black snap-start">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -402,21 +372,21 @@ const MainContent: React.FC = () => {
           viewport={{ once: true }}
           className="max-w-4xl"
         >
-          <h2 className="text-display mb-8 text-black">
+          <h2 className="text-display mb-8 text-white">
             <span className="text-slash">Let's</span>Talk.
           </h2>
           
-          <p className="text-body-large text-black/70 mb-12 max-w-2xl">
+          <p className="text-body-large text-white/70 mb-12 max-w-2xl">
             Contact me today for a free consultation and let's discuss your next project.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div>
-              <h3 className="text-body font-semibold mb-6 text-black">Get In Touch</h3>
+              <h3 className="text-body font-semibold mb-6 text-white">Get In Touch</h3>
               <div className="space-y-4">
-                <p className="text-body text-black">+91 9121883163</p>
-                <p className="text-body text-black">nishantsura95@gmail.com</p>
-                <p className="text-black/70">Bangalore, India</p>
+                <p className="text-body text-white">+91 9121883163</p>
+                <p className="text-body text-white">nishantsura95@gmail.com</p>
+                <p className="text-white/70">Bangalore, India</p>
               </div>
               
               <div className="mt-8">
@@ -425,8 +395,8 @@ const MainContent: React.FC = () => {
                   alt="Nishant Sura"
                   className="w-16 h-16 rounded-full object-cover mb-4"
                 />
-                <p className="text-caption font-semibold text-black">Nishant Sura</p>
-                <p className="text-caption text-black/70">Product Manager</p>
+                <p className="text-caption font-semibold text-white">Nishant Sura</p>
+                <p className="text-caption text-white/70">Product Manager</p>
               </div>
             </div>
 
@@ -436,26 +406,29 @@ const MainContent: React.FC = () => {
                   <input 
                     type="text" 
                     placeholder="Your Name"
-                    className="w-full p-4 border border-border rounded-lg transition-all duration-200"
+                    className="w-full p-4 border border-white/20 bg-white/5 text-white placeholder-white/50 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/40"
                   />
                 </div>
                 <div>
                   <input 
                     type="email" 
                     placeholder="Your Email"
-                    className="w-full p-4 border border-border rounded-lg transition-all duration-200"
+                    className="w-full p-4 border border-white/20 bg-white/5 text-white placeholder-white/50 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/40"
                   />
                 </div>
                 <div>
                   <textarea 
                     placeholder="Tell me about your project..."
                     rows={4}
-                    className="w-full p-4 border border-border rounded-lg transition-all duration-200"
+                    className="w-full p-4 border border-white/20 bg-white/5 text-white placeholder-white/50 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/40"
                   />
                 </div>
-                <GlowButton type="submit" className="w-full">
+                <button 
+                  type="submit" 
+                  className="w-full bg-white text-black px-6 py-4 rounded-lg font-semibold hover:bg-gray-200 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black"
+                >
                   Send Message
-                </GlowButton>
+                </button>
               </form>
             </div>
           </div>

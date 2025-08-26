@@ -99,6 +99,24 @@
   cursor: grabbing;
 }
 
+/* Custom slow gradient animation */
+@keyframes slowGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-slow-gradient {
+  background-size: 200% 200%;
+  animation: slowGradient 8s ease-in-out infinite;
+}
+
 /* Contact Form Animations */
 @keyframes fadeSlideIn {
   to {
